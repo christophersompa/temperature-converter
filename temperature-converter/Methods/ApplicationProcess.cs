@@ -32,13 +32,23 @@ namespace temperature_converter.Methods
                 {
                     Console.WriteLine("\nEnter temperature:");
                     
-                    double temperature = Convert.ToDouble(Console.ReadLine());
+                    string temperatureInput = Console.ReadLine();
+                    if (!Double.TryParse(temperatureInput, out var temperature))
+                    {
+                        continue;
+                    }
 
-                    Console.WriteLine("\nSelect a temparature scale (celsius, fahrenheit or kelvin):");
-                    
-                    string userInput = Console.ReadLine();
+                    while (true)
+                    {
+                        Console.WriteLine("\nSelect a temparature scale (celsius, fahrenheit or kelvin):");
+                        string userInput = Console.ReadLine();
+                        bool isInputCorrect = ProcessInput(userInput, temperature);
 
-                    ProcessInput(userInput, temperature);
+                        if (isInputCorrect)
+                        {
+                            break;
+                        }
+                    }
                 }
                 else if (action.Equals("Quit", StringComparison.OrdinalIgnoreCase))
                 {
@@ -107,23 +117,27 @@ namespace temperature_converter.Methods
             Console.WriteLine($"\nFahrenheit: {fahrenheit}");
         }
 
-        public static void ProcessInput(string input, double temp)
+        public static bool ProcessInput(string input, double temp)
         {
             if (input.Equals("Celsius", StringComparison.OrdinalIgnoreCase))
             {
                 ProcessCelsius(temp);
+                return true;
             }
             else if (input.Equals("Fahrenheit", StringComparison.OrdinalIgnoreCase))
             {
                 ProcessFahrenheit(temp);
+                return true;
             }
             else if (input.Equals("Kelvin", StringComparison.OrdinalIgnoreCase))
             {
                 ProcessKelvin(temp);
+                return true;
             }
             else
             {
                 Console.WriteLine("Incorerect input!");
+                return false;
             }
         }
 
@@ -131,21 +145,27 @@ namespace temperature_converter.Methods
         {
             Console.WriteLine($"Celsius: {temp}");
 
-            Console.WriteLine("\nConvert to fahrenheit or kelvin:");
+            while (true)
+            {
+                Console.WriteLine("\nConvert to fahrenheit or kelvin:");
 
-            string convertTo = Console.ReadLine();
+                string convertTo = Console.ReadLine();
 
-            if (convertTo.Equals("Fahrenheit", StringComparison.OrdinalIgnoreCase))
-            {
-                CelsiusToFahrenheit(temp);
-            }
-            else if (convertTo.Equals("Kelvin", StringComparison.OrdinalIgnoreCase))
-            {
-                CelsiusToKelvin(temp);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input!");
+                if (convertTo.Equals("Fahrenheit", StringComparison.OrdinalIgnoreCase))
+                {
+                    CelsiusToFahrenheit(temp);
+                    break;
+                }
+                else if (convertTo.Equals("Kelvin", StringComparison.OrdinalIgnoreCase))
+                {
+                    CelsiusToKelvin(temp);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect input!");
+                    continue;
+                }
             }
         }
 
@@ -153,21 +173,27 @@ namespace temperature_converter.Methods
         {
             Console.WriteLine($"Fahrenheit: {temp}");
 
-            Console.WriteLine("\nConvert to celsius or kelvin:");
+            while (true)
+            {
+                Console.WriteLine("\nConvert to celsius or kelvin:");
 
-            string convertTo = Console.ReadLine();
+                string convertTo = Console.ReadLine();
 
-            if (convertTo.Equals("Celsius", StringComparison.OrdinalIgnoreCase))
-            {
-                FahrenheitToCelsius(temp);
-            }
-            else if (convertTo.Equals("Kelvin", StringComparison.OrdinalIgnoreCase))
-            {
-                FahrenheitToKelvin(temp);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input!");
+                if (convertTo.Equals("Celsius", StringComparison.OrdinalIgnoreCase))
+                {
+                    FahrenheitToCelsius(temp);
+                    break;
+                }
+                else if (convertTo.Equals("Kelvin", StringComparison.OrdinalIgnoreCase))
+                {
+                    FahrenheitToKelvin(temp);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect input!");
+                    continue;
+                }
             }
         }
 
@@ -175,21 +201,27 @@ namespace temperature_converter.Methods
         {
             Console.WriteLine($"Kelvin: {temp}");
 
-            Console.WriteLine("\nConvert to celsius or fahrenheit:");
+            while (true)
+            {
+                Console.WriteLine("\nConvert to celsius or fahrenheit:");
 
-            string convertTo = Console.ReadLine();
+                string convertTo = Console.ReadLine();
 
-            if (convertTo.Equals("Celsius", StringComparison.OrdinalIgnoreCase))
-            {
-                KelvinToCelsius(temp);
-            }
-            else if (convertTo.Equals("Fahrenheit", StringComparison.OrdinalIgnoreCase))
-            {
-                KelvinToFahrenheit(temp);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect input!");
+                if (convertTo.Equals("Celsius", StringComparison.OrdinalIgnoreCase))
+                {
+                    KelvinToCelsius(temp);
+                    break;
+                }
+                else if (convertTo.Equals("Fahrenheit", StringComparison.OrdinalIgnoreCase))
+                {
+                    KelvinToFahrenheit(temp);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect input!");
+                    continue;
+                }
             }
         }
     }
